@@ -2,8 +2,9 @@
 import requests, bs4
 web = requests.get('https://nrk.no')
 web.raise_for_status()
+web.encoding = 'utf-8'
 web_parsed = bs4.BeautifulSoup(web.text, 'html.parser')
-print('Nyheter fra NRK.no - ', end='')
-print(web_parsed.select('.kur-newsfeed__message-time')[0].getText())
 for headline in web_parsed.select('.kur-newsfeed__message-title'):
   print(headline.getText())
+print('\nNyheter fra www.NRK.no - '+web_parsed.select('.kur-newsfeed__message-time')[0].getText())
+
